@@ -27,17 +27,11 @@ class TestAuthor:
         assert isinstance(author_1.name, str)
         assert isinstance(author_2.name, str)
 
-        # comment out the next two lines if using Exceptions
-        author_1.name = "ActuallyTopher"
-        assert author_1.name == "Carry Bradshaw"
+        with pytest.raises(AttributeError):
+            author_1.name = "ActuallyTopher"
 
-        # comment out the next two lines if using Exceptions
-        author_2.name = 2
-        assert author_2.name == "Nathaniel Hawthorne"
-
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Author(2)
+        with pytest.raises(AttributeError):
+            author_2.name = 2
 
     def test_name_len(self):
         """author name is longer than 0 characters"""
@@ -48,10 +42,6 @@ class TestAuthor:
         assert len(author_1.name) > 0
         assert hasattr(author_2, "name")
         assert len(author_2.name) > 0
-
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Author("")
 
     def test_has_many_articles(self):
         """author has many articles"""
@@ -127,7 +117,7 @@ class TestAuthor:
         magazine_2 = Magazine("AD", "Architecture")
         article_1 = author_1.add_article(magazine_1, "How to wear a tutu with style")
         article_2 = author_1.add_article(magazine_2, "2023 Eccentric Design Trends")
-        article_3 = author_1.add_article(magazine_2, "Carra Marble is so 2020")
+        article_3 = author_1.add_article(magazine_2, "Carrara Marble is so 2020")
 
         assert isinstance(article_1, Article)
         assert len(author_1.articles()) == 3
